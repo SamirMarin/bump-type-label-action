@@ -1,0 +1,21 @@
+name: 'bump-type-label-action'
+description: 'Outputs a bump type based on a label'
+inputs:
+  default_bump:
+    description: 'The default bump if no label is found'
+    required: false
+    default: 'patch'
+  label_prefix:
+    description: 'Prefix of the label name i.e <prefix>:<suffix>'
+    required: false
+    default: 'bump'
+outputs:
+  random-number:
+    description: "Bump Type"
+    value: ${{ steps.bump-type.outputs.value }}
+runs:
+  using: "composite"
+  steps:
+    - id: bump-type
+      run: bump_type.sh
+      shell: bash
