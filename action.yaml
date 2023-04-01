@@ -5,10 +5,6 @@ inputs:
     description: 'The default bump if no label is found'
     required: false
     default: 'patch'
-  label_prefix:
-    description: 'Prefix of the label name i.e <prefix>:<suffix>'
-    required: false
-    default: 'bump'
 outputs:
   random-number:
     description: "Bump Type"

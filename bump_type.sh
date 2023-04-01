@@ -1,6 +1,5 @@
 #!/bin/sh
 BUMP_VERSION=${{ inputs.defaut_bump }}
-LABEL_PREFIX=${{ inputs.label_prefix }}
 if [[ ${{ github.event_name }} != 'pull_request' ]]; then
   REPOSITORIES=$(curl \
     -H "Accept: application/vnd.github+json" \
@@ -12,23 +11,23 @@ if [[ ${{ github.event_name }} != 'pull_request' ]]; then
     exit 1
   fi
   LABELS=$(echo "$REPOSITORIES" | jq '.[0].labels | .[].name')
-  if echo "${LABELS}" | grep "${LABEL_PREFIX}:major" ; then
+  if echo "${LABELS}" | grep "bump:major" ; then
     BUMP_VERSION="major"
-  elif echo "${LABELS}" | grep "${LABEL_PREFIX}:minor" ; then
+  elif echo "${LABELS}" | grep "bump:minor" ; then
     BUMP_VERSION="minor"
-  elif echo "${LABELS}" | grep "${LABEL_PREFIX}:patch" ; then
+  elif echo "${LABELS}" | grep "bump:patch" ; then
     BUMP_VERSION="patch"
-  elif echo "${LABELS}" | grep "${LABEL_PREFIX}:ignore" ; then
+  elif echo "${LABELS}" | grep "bump:ignore" ; then
     BUMP_VERSION="ignore"
   fi
 else
-  if ${{ contains(github.event.pull_request.labels.*.name, '${LABEL_PREFIX}:major') }}; then
+  if ${{ contains(github.event.pull_request.labels.*.name, 'bump:major') }}; then
     BUMP_VERSION="major"
-  elif ${{ contains(github.event.pull_request.labels.*.name, '${LABEL_PREFIX}:minor') }}; then
+  elif ${{ contains(github.event.pull_request.labels.*.name, 'bump:minor') }}; then
     BUMP_VERSION="minor"
-  elif ${{ contains(github.event.pull_request.labels.*.name, '${LABEL_PREFIX}:patch') }}; then
+  elif ${{ contains(github.event.pull_request.labels.*.name, 'bump:patch') }}; then
     BUMP_VERSION="patch"
-  elif ${{ contains(github.event.pull_request.labels.*.name, '${LABEL_PREFIX}:ignore') }}; then
+  elif ${{ contains(github.event.pull_request.labels.*.name, 'bump:ignore') }}; then
     BUMP_VERSION="ignore"
   fi
 fi

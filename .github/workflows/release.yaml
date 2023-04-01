@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: bump_labels
         id: bump-label
-        uses: SamirMarin/bump-type-label-action@v0.0.2
+        uses: SamirMarin/bump-type-label-action@release-workflow
 
       - name: echo-test
         run: echo ${{ steps.bump-label.outputs.value }}
