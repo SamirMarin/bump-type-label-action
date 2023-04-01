@@ -1,0 +1,24 @@
+name: release
+
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubutu-latest
+    steps:
+      - name: bump_labels
+        id: bump-label
+        uses: SamirMarin/bump-type-label-action@v0.0.1
+
+      - name: echo-test
+        run: echo ${{ steps.bump-label.outputs.value }}
+
+
+  
