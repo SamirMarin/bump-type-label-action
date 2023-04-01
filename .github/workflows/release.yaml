@@ -11,7 +11,7 @@ on:
 
 jobs:
   release:
-    runs-on: ubutu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: bump_labels
         id: bump-label
