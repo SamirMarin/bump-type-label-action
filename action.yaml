@@ -9,7 +9,7 @@ inputs:
     description: 'Token to access github repo, needed for push events'
     required: false
 outputs:
-  random-number:
+  bump-type:
     description: "Bump Type"
     value: ${{ steps.bump-type.outputs.value }}
 runs:

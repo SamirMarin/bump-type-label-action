@@ -19,7 +19,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: echo-test
-        run: echo ${{ steps.bump-label.outputs.value }}
+        run: echo ${{ steps.bump-label.outputs.bump-type }}
 
 
   
