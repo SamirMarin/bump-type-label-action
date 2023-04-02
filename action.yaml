@@ -1,10 +1,13 @@
 name: 'bump-type-label-action'
 description: 'Outputs a bump type based on a label'
 inputs:
-  default_bump:
+  default-bump:
     description: 'The default bump if no label is found'
     required: false
     default: 'patch'
+  github-token:
+    description: 'Token to access github repo, needed for push events'
+    required: false
 outputs:
   random-number:
     description: "Bump Type"
@@ -16,11 +19,11 @@ runs:
       shell: bash
     - id: bump-type
       run: |
-        BUMP_VERSION=${{ inputs.default_bump }}
+        BUMP_VERSION=${{ inputs.default-bump }}
         if [[ ${{ github.event_name }} != 'pull_request' ]]; then
           REPOSITORIES=$(curl \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: Bearer ${{ inputs.github-token }}" \
             https://api.github.com/repos/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/commits/${GITHUB_SHA}/pulls)
           LENGTH=$(echo "$REPOSITORIES" | jq length)
           if [[  "$LENGTH" != "1" ]]; then
