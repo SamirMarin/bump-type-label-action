@@ -1,0 +1,25 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: bump_labels
+        id: bump-label
+        uses: SamirMarin/bump-type-label-action@release-workflow
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: echo-test
+        run: echo ${{ steps.bump-label.outputs.bump-type }}
+
+
+  
